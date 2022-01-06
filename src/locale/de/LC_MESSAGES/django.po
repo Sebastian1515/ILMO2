@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 18:37+0100\n"
+"POT-Creation-Date: 2022-01-06 17:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\ilmo\settings.py:180
+#: .\ilmo\settings.py:181
 msgid "English"
 msgstr "Englisch"
 
-#: .\ilmo\settings.py:181
+#: .\ilmo\settings.py:182
 msgid "German"
 msgstr "Deutsch"
 
@@ -29,27 +29,27 @@ msgstr "Deutsch"
 msgid "Library"
 msgstr "Bibliothek"
 
-#: .\library\forms.py:12
+#: .\library\forms.py:13
 msgid "Enter a date between now and 4 weeks (default 3)."
 msgstr "Gebe ein Datum zwischen jetzt und 4 Wochen ein (Standard 3)."
 
-#: .\library\forms.py:19
+#: .\library\forms.py:20
 msgid "Invalid date - renewal in past"
 msgstr "Ungültiges Datum - Verlängerung in der Vergangenheit"
 
-#: .\library\forms.py:23
+#: .\library\forms.py:24
 msgid "Invalid date - renewal more than 4 weeks ahead"
 msgstr "Ungültiges datum - Verlängerung mehr als 4 Wochen voraus"
 
-#: .\library\forms.py:33 .\library\templates\library\openinghours.html:8
+#: .\library\forms.py:34 .\library\templates\library\openinghours.html:8
 msgid "Open from"
 msgstr "Offen von"
 
-#: .\library\forms.py:34 .\library\templates\library\openinghours.html:9
+#: .\library\forms.py:35 .\library\templates\library\openinghours.html:9
 msgid "Open until"
 msgstr "Offen bis"
 
-#: .\library\forms.py:41
+#: .\library\forms.py:42
 msgid "Library must be open before closing 😉"
 msgstr "Bibliothek muss öffnen bevor sie schließt 😉"
 
@@ -674,7 +674,11 @@ msgstr "Ausloggen"
 msgid "Login"
 msgstr "Einloggen"
 
-#: .\library\templates\library\nav_sidebar.html:25
+#: .\library\templates\library\nav_sidebar.html:22
+msgid "Register"
+msgstr "Registrieren"
+
+#: .\library\templates\library\nav_sidebar.html:26
 msgid "Admin"
 msgstr "Admin"
 
@@ -714,11 +718,19 @@ msgstr "Keine Bücherinstanz gefunden."
 msgid "No material instances found."
 msgstr "Keine Materialinstanz gefunden."
 
-#: .\library\views.py:109
+#: .\library\views.py:95
+msgid "Registration successful."
+msgstr "Registrierung erfolgreich."
+
+#: .\library\views.py:97
+msgid "Unsuccessful registration. Invalid information."
+msgstr "Registrierung nicht erfolgreich. Ungültige Informationen"
+
+#: .\library\views.py:123
 msgid "Creating API token"
 msgstr "Erstelle API token"
 
-#: .\library\views.py:133
+#: .\library\views.py:147
 #, python-format
 msgid "You're looking at the loans of book %s."
 msgstr "Du suchst nach der Ausleihe des Buches %s."
@@ -746,6 +758,10 @@ msgstr "Einloggen"
 #: .\templates\registration\login.html:36
 msgid "Lost password?"
 msgstr "Passwort vergessen?"
+
+#: .\templates\registration\login.html:37
+msgid "Not yet registered? Register here"
+msgstr "Noch nicht registriert? Registriere dich hier"
 
 #: .\templates\registration\password_reset_complete.html:5
 msgid "The password has been changed!"
