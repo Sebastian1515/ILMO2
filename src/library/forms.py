@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from library.models import OpeningHours
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 class RenewItemForm(forms.Form):
     renewal_date = forms.DateField(help_text=_("Enter a date between now and 4 weeks (default 3)."))
@@ -47,4 +48,19 @@ class UserSearchForm(ModelForm):
         model = User
         fields = ['first_name', 'last_name']
     use_required_attribute = False
+
+class NewUserForm(UserCreationForm):
+	email = forms.EmailField(required=True)
+
+	class Meta:
+		model = User
+		fields = ("username", "email", "first_name", "last_name", "password1", "password2")
+
+	def save(self, commit=True):
+		user = super(NewUserForm, self).save(commit=False)
+		user.email = self.cleaned_data['email']
+		if commit:
+			user.save()
+		return user
+
 

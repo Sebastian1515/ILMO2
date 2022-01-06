@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
 from django.http import JsonResponse
@@ -10,10 +11,11 @@ import datetime
 from django.utils import timezone
 from rest_framework.authtoken.models import Token
 
-from .forms import RenewItemForm, UserSearchForm
+from .forms import RenewItemForm, UserSearchForm, NewUserForm
 from .models import Book, Author, BookInstance, Loan, Material, MaterialInstance, OpeningHours, Item, Member, \
     LoanReminder
 from django.contrib.auth.models import User
+from django.contrib.auth import login
 
 from django.utils.translation import gettext_lazy as _
 
@@ -83,6 +85,18 @@ def metrics(request):
     data = gather_metrics_data()
 
     return JsonResponse(data)
+
+def register_request(request):
+	if request.method == "POST":
+		form = NewUserForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			login(request, user)
+			messages.success(request, _("Registration successful."))
+			return redirect("library:index")
+		messages.error(request, _("Unsuccessful registration. Invalid information."))
+	form = NewUserForm()
+	return render (request=request, template_name="library/register.html", context={"register_form":form})
 
 
 def show_user(request, user, token=None):

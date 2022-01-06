@@ -4,8 +4,13 @@ from . import views
 
 app_name = "library"
 
-""" BOOK """
+"""REGISTER"""
 urlpatterns = [
+    path("register", views.register_request, name="register")
+]
+
+""" BOOK """
+urlpatterns += [
     # ex: /
     path('', views.index, name='index'),
     # ex: /books/
