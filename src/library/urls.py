@@ -37,8 +37,10 @@ urlpatterns += [
 urlpatterns += [
     # ex: /library/my-loans/
     path('my-loans/', views.list_loans_of_user, name='my-loans'),
-    # ex: /library/loaned-items/
-    path('loaned-items/', views.list_loans_unreturned, name='loaned-items'),
+    # ex: /library/unreturned-loans/
+    path('unreturned_loans/', views.list_loans_unreturned, name='unreturned-loans'),
+    # ex: /library/loans/
+    path('loans/', views.list_loans, name='loans'),
     # ex: /library/loan/1/
     path('loan/<int:pk>/', views.LoanDetailView.as_view(), name='loan-detail'),
 ]
@@ -89,6 +91,7 @@ urlpatterns += [
     path('user-detail/<slug:pk>/', views.user_detail, name='user-detail'),
     path('password/', views.PasswordsChangeView.as_view(), name='password'),
     path('my-profile/', views.my_profile, name='my-profile'),
+    path('accounts/', include('django_registration.backends.activation.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
 

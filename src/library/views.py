@@ -209,12 +209,11 @@ class AuthorDetailView(generic.DetailView):
 def list_loans_of_user(request):
     """View function for home page of site."""
     loans_by_user = Loan.objects.filter(borrower=Member.objects.get(user=request.user))
+    returned_loans_by_user = [loan for loan in loans_by_user if (loan.returned)]
     unreturned_loans_by_user = [loan for loan in loans_by_user if not (loan.returned)]
-    bookinstance_list = BookInstance.objects.filter(loan__in=unreturned_loans_by_user)
-    materialinstance_list = MaterialInstance.objects.filter(loan__in=unreturned_loans_by_user)
     context = {
-        'bookinstance_list': bookinstance_list,
-        'materialinstance_list': materialinstance_list,
+        'returned_loans': returned_loans_by_user,
+        'unreturned_loans': unreturned_loans_by_user,
     }
 
     return render(request, 'library/list_loans_user.html', context=context)
@@ -224,14 +223,23 @@ def list_loans_of_user(request):
 @permission_required('library.can_see_borrowed', raise_exception=True)
 def list_loans_unreturned(request):
     """View all unreturned items"""
-    loans = Loan.objects.all()
+    loans = Loan.objects.filter()
     unreturned_loans = [loan for loan in loans if not loan.returned]
-    item_list = Item.objects.filter(loan__in=unreturned_loans)
     context = {
-        'item_list': item_list,
+        'loan_list': unreturned_loans,
     }
 
-    return render(request, 'library/list_loans_all.html', context=context)
+    return render(request, 'library/list_loans.html', context=context)
+
+@login_required()
+@permission_required('library.can_see_borrowed', raise_exception=True)
+def list_loans(request):
+    """View all unreturned items"""
+    loans = Loan.objects.all()
+    context = {
+        'loan_list': loans,
+    }
+    return render(request, 'library/list_loans.html', context=context)
 
 
 @login_required
@@ -340,7 +348,7 @@ def search(request):
     if request.method == 'POST':
         # Check if the form is valid:
         q = request.POST['q']
-        if request.user.has_perm('Can view user'):
+        if request.user.has_perm('library.view_member'):
             context['user_list'] = get_user(q)
 
         books = []
