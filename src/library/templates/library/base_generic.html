@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load i18n %}
 <head>
     {% block title %}<title>ILMO</title>{% endblock %}
     <meta charset="utf-8">
@@ -27,13 +28,13 @@
                 <div class="pagination">
 				<span class="page-links">
 					{% if page_obj.has_previous %}
-                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">{% translate "previous" %}</a>
                     {% endif %}
                     <span class="page-current">
-						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+						{% translate "Page" %} {{ page_obj.number }} {% translate "of" %} {{ page_obj.paginator.num_pages }}.
 					</span>
                     {% if page_obj.has_next %}
-                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}"> {% translate "next" %}</a>
                     {% endif %}
 				</span>
                 </div>
